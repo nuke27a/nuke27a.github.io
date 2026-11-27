@@ -908,19 +908,19 @@
         var drawn = false;
 
         var fortunes = [
-          { rank: "大吉", cls: "great", w: 12, msg: "雲ひとつない快晴の運気。<br />狙うものは今日、手に入ります。",
+          { rank: "大吉", cls: "great", w: 12, msgs: ["雲ひとつない快晴の運気。<br />狙うものは今日、手に入ります。", "ペングラスが三度見する大吉。<br />今日はSSRも大物も逃げません。", "湖柳も思わず二度見する運気。<br />ガチャの神様が味方です。", "今日のあなたは歩く天井回避。<br />引けば出る、出れば当たる。", "ザトウクジラが挨拶に来る日。<br />釣りもガチャも遠慮は無用。"],
             stats: [["ガチャ運", "絶好調"], ["育成運", "大成長"], ["レイド運", "MVP級"], ["ギルド運", "結束◎"], ["釣り運", "ザトウクジラ級"]] },
-          { rank: "中吉", cls: "", w: 20, msg: "追い風は穏やかながら確か。<br />地道な一手が実を結びます。",
+          { rank: "中吉", cls: "", w: 20, msgs: ["追い風は穏やかながら確か。<br />地道な一手が実を結びます。", "マルと目が合ったら吉兆。<br />穏やかに、でも確実に前進。", "10連で金色の光が見える予感。<br />深追いしなければ勝ちです。", "今日の合言葉は「堅実」。<br />レイドも釣りも安定運行。", "シャチが遠くで跳ねた日。<br />大物の気配、少しあり。"],
             stats: [["ガチャ運", "好調"], ["育成運", "順調"], ["レイド運", "安定"], ["ギルド運", "良好"], ["釣り運", "シャチ・ジンベエ級"]] },
-          { rank: "小吉", cls: "", w: 20, msg: "小さな幸運が重なる日。<br />デイリーの取りこぼしに注意。",
+          { rank: "小吉", cls: "", w: 20, msgs: ["小さな幸運が重なる日。<br />デイリーの取りこぼしに注意。", "小さいけれど確かな吉。<br />ぱくぱくの食欲くらい確かです。", "リュウグウノツカイ未遂の日。<br />珍しいものに少しだけ近い。", "コツコツが実る日。<br />育成素材、今日はケチらない。", "ナツトラの寝顔を見たら吉。<br />のんびり行くのが正解です。"],
             stats: [["ガチャ運", "まずまず"], ["育成運", "小進歩"], ["レイド運", "堅実"], ["ギルド運", "和やか"], ["釣り運", "リュウグウノツカイ級"]] },
-          { rank: "吉", cls: "", w: 20, msg: "平穏無事が何よりの吉。<br />無理な深追いは禁物です。",
+          { rank: "吉", cls: "", w: 20, msgs: ["平穏無事が何よりの吉。<br />無理な深追いは禁物です。", "可もなく不可もなく、でも平和。<br />それが一番の贅沢です。", "太鼓人の太鼓が遠くで鳴る日。<br />普通の一日を楽しみましょう。", "今日は守りの日。<br />石は温存、竿はほどほどに。", "みふぁの帰りを待つような日。<br />焦らず、のんびりいきましょう。"],
             stats: [["ガチャ運", "平常"], ["育成運", "平常"], ["レイド運", "平常"], ["ギルド運", "平常"], ["釣り運", "大物に期待"]] },
-          { rank: "末吉", cls: "", w: 14, msg: "運気はこれから上向き。<br />焦らず機を待ちましょう。",
+          { rank: "末吉", cls: "", w: 14, msgs: ["運気はこれから上向き。<br />焦らず機を待ちましょう。", "最初は凶、途中から吉。<br />後半戦に全部かかっています。", "なまけものも今日は動く日。<br />遅れて運気が追いつきます。", "朝のガチャは我慢。<br />夜レイドで取り返しましょう。", "竿を出せば何かは来る。<br />大物は次回に持ち越しです。"],
             stats: [["ガチャ運", "様子見"], ["育成運", "仕込み時"], ["レイド運", "後半勝負"], ["ギルド運", "静観"], ["釣り運", "次回に期待"]] },
-          { rank: "凶", cls: "bad", w: 9, msg: "向かい風の日。<br />石橋を叩いて渡れば難は逃れます。",
+          { rank: "凶", cls: "bad", w: 9, msgs: ["向かい風の日。<br />石橋を叩いて渡れば難は逃れます。", "ガチャは封印推奨の日。<br />引くなら覚悟を決めて1回だけ。", "サブイボの悲鳴が聞こえる日。<br />無理せず、早めに切り上げを。", "ボウズの影がちらつく日。<br />釣り場を変えるのも手です。", "今日は撤退も戦術。<br />明日の大吉に石を残そう。"],
             stats: [["ガチャ運", "控えめに"], ["育成運", "点検日和"], ["レイド運", "守り重視"], ["ギルド運", "言葉を選ぶ"], ["釣り運", "ボウズ注意"]] },
-          { rank: "大凶", cls: "bad", w: 5, msg: "嵐の真っ只中。でも、ここが底。<br />明日は必ず晴れます。",
+          { rank: "大凶", cls: "bad", w: 5, msgs: ["嵐の真っ只中。でも、ここが底。<br />明日は必ず晴れます。", "ペングラスも目をそらす大凶。<br />でも底は底、上がるだけです。", "天井まで一直線の日。<br />今日は引かずに眺めるだけ。", "湖柳に慰められる覚悟で。<br />明日はきっと良い日です。", "竿も運も今日はお休み。<br />寝て起きたら運気リセット。"],
             stats: [["ガチャ運", "今日は封印"], ["育成運", "休養も育成"], ["レイド運", "無理せず参加"], ["ギルド運", "仲間に頼る"], ["釣り運", "竿は休め"]] }
         ];
 
@@ -939,14 +939,14 @@
           return null;
         }
 
-        function renderFortunePaper(f, no) {
+        function renderFortunePaper(f, no, msgText) {
           var statsHtml = f.stats.map(function (s) {
             return "<li><span class=\"k\">" + s[0] + "</span><span class=\"v\">" + s[1] + "</span></li>";
           }).join("");
           fortuneEl.innerHTML =
             "<div class=\"fortune-paper\">" +
               "<div class=\"fortune-rank " + f.cls + "\">" + f.rank + "</div>" +
-              "<p class=\"fortune-msg\">" + f.msg + "</p>" +
+              "<p class=\"fortune-msg\">" + (msgText || f.msgs[0]) + "</p>" +
               "<ul class=\"fortune-stats\">" + statsHtml + "</ul>" +
               "<p class=\"fortune-no\">第 " + no + " 番</p>" +
             "</div>";
@@ -984,7 +984,7 @@
               drawn = true;
               btnOmikuji.disabled = true;
               btnOmikuji.textContent = "今日のおみくじは引き終わりました";
-              renderFortunePaper(f, store.omikuji.no);
+              renderFortunePaper(f, store.omikuji.no, f.msgs[store.omikuji.mi || 0] || f.msgs[0]);
             }
           }
           renderCollection();
@@ -1004,10 +1004,11 @@
             omikujiCard.classList.remove("shaking");
             var f = pickFortune();
             var no = Math.floor(Math.random() * 100) + 1;
-            store.omikuji = { date: todayKey(), rank: f.rank, no: no };
+            var mi = Math.floor(Math.random() * f.msgs.length);
+            store.omikuji = { date: todayKey(), rank: f.rank, no: no, mi: mi };
             store.collection[f.rank] = (store.collection[f.rank] || 0) + 1;
             save();
-            renderFortunePaper(f, no);
+            renderFortunePaper(f, no, f.msgs[mi]);
             renderCollection();
             btnOmikuji.textContent = "今日のおみくじは引き終わりました";
           }, 1100);
