@@ -251,8 +251,7 @@
       .fortune-no { text-align: center; font-size: .78rem; color: #9a865e; margin: 12px 0 0; letter-spacing: .2em; }
 
       /* ---------- 名簿 ---------- */
-      .featured { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-      @media (max-width: 520px) { .featured { grid-template-columns: 1fr; } }
+      .featured { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 0 auto 12px; max-width: 460px; }
       .ema-feature {
         position: relative; text-align: center;
         padding: 26px 12px 18px;
@@ -301,6 +300,155 @@
         .ema-feature { background: linear-gradient(180deg, #57451f, #423310); color: #fdf0c8; }
         .ema-feature .desc { color: #e3c87e; }
       }
+
+      /* ---------- 参拝記録 ---------- */
+      .record-panel {
+        margin: 22px 12px 0; padding-top: 20px;
+        border-top: 1px dashed var(--card-edge);
+      }
+      .record-stats { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+      .rstat {
+        flex: 1 1 100px; max-width: 170px; text-align: center;
+        background: var(--bg); border: 1px solid var(--card-edge); border-radius: 10px;
+        padding: 10px 6px 8px;
+      }
+      .rstat-num {
+        display: block; font-family: "Shippori Mincho", serif; font-weight: 800;
+        font-size: 1.7rem; line-height: 1.2; color: var(--vermillion);
+      }
+      .rstat-label { display: block; font-size: .74rem; color: var(--ink-soft); margin-top: 2px; }
+      .title-line { text-align: center; margin: 14px 0 0; font-size: .95rem; }
+      .title-name {
+        font-family: "Shippori Mincho", serif; font-weight: 800; font-size: 1.12rem;
+        color: var(--gold); letter-spacing: .06em;
+      }
+      .title-next { display: block; font-size: .8rem; color: var(--ink-soft); margin-top: 2px; }
+      .cal-head {
+        display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+        max-width: 420px; margin: 18px auto 8px;
+      }
+      .cal-title { font-family: "Shippori Mincho", serif; font-weight: 700; font-size: .98rem; }
+      .cal-legend { font-size: .76rem; color: var(--ink-soft); display: inline-flex; align-items: center; gap: 5px; }
+      .cal-dot-sample { width: 10px; height: 10px; border-radius: 50%; background: var(--vermillion); display: inline-block; }
+      .calendar {
+        display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px;
+        max-width: 420px; margin: 0 auto;
+      }
+      .calendar .dow {
+        text-align: center; font-size: .72rem; font-weight: 700; color: var(--ink-soft); padding: 2px 0;
+      }
+      .calendar .dow.sun { color: var(--vermillion); }
+      .calendar .dow.sat { color: #3f6db3; }
+      @media (prefers-color-scheme: dark) { .calendar .dow.sat { color: #8fb4e8; } }
+      .calendar .day {
+        text-align: center; font-size: .86rem; padding: 5px 0; border-radius: 50%;
+        aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+        color: var(--ink-soft);
+      }
+      .calendar .day.visited { background: var(--vermillion); color: #fff; font-weight: 700; }
+      .calendar .day.today { outline: 2px solid var(--gold-bright); outline-offset: -2px; font-weight: 700; color: var(--ink); }
+      .calendar .day.today.visited { color: #fff; }
+      .calendar .day.empty { visibility: hidden; }
+      .record-note { text-align: center; font-size: .78rem; color: var(--ink-soft); margin: 12px 0 0; }
+
+      /* ---------- おみくじコレクション ---------- */
+      .collection { margin-top: 26px; padding-top: 18px; border-top: 1px dashed #c9b078; text-align: left; }
+      .collection-head {
+        margin: 0 0 10px; font-family: "Shippori Mincho", serif; font-weight: 700; font-size: 1rem;
+        display: flex; justify-content: space-between; align-items: baseline;
+      }
+      .collection-count { font-family: "Zen Kaku Gothic New", sans-serif; font-size: .85rem; color: var(--gold); font-weight: 700; }
+      .collection-list {
+        list-style: none; margin: 0; padding: 0;
+        display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px;
+      }
+      .collection-list li {
+        text-align: center; padding: 8px 4px; border-radius: 8px;
+        border: 1.5px dashed var(--card-edge); color: var(--ink-soft);
+        font-family: "Shippori Mincho", serif; font-weight: 700; font-size: .95rem;
+      }
+      .collection-list li.got {
+        border: 1.5px solid var(--gold); background: var(--bg); color: var(--ink);
+      }
+      .collection-list li .col-count { display: block; font-family: "Zen Kaku Gothic New", sans-serif; font-size: .7rem; font-weight: 700; color: var(--gold); margin-top: 1px; }
+      .collection-list li:not(.got) .col-count { color: var(--ink-soft); opacity: .7; }
+
+      /* ---------- レイド ---------- */
+      .raid-card { padding: 22px 18px; text-align: center; }
+      .raid-status { margin: 0; font-family: "Shippori Mincho", serif; font-weight: 700; font-size: 1.05rem; color: var(--ink-soft); }
+      .raid-status.live { color: var(--vermillion); }
+      .raid-count {
+        margin: 4px 0 0; font-family: "Shippori Mincho", serif; font-weight: 800;
+        font-size: clamp(2rem, 9vw, 2.9rem); line-height: 1.25; letter-spacing: .04em;
+        font-variant-numeric: tabular-nums;
+      }
+      .raid-slots { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 14px; }
+      .raid-slot {
+        border: 1px solid var(--card-edge); background: var(--bg); border-radius: 10px;
+        padding: 8px 18px; min-width: 150px;
+      }
+      .raid-slot.active { border-color: var(--vermillion); box-shadow: 0 0 0 1px var(--vermillion); }
+      .raid-slot-name { display: block; font-size: .78rem; font-weight: 700; color: var(--ink-soft); }
+      .raid-slot-time { display: block; font-family: "Shippori Mincho", serif; font-weight: 700; font-size: 1.02rem; font-variant-numeric: tabular-nums; }
+      .raid-note { margin: 12px 0 0; font-size: .78rem; color: var(--ink-soft); }
+
+      /* ---------- ガチャカウンター ---------- */
+      .gacha-card { padding: 18px; margin-bottom: 12px; }
+      .gacha-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+      .gacha-name { font-family: "Shippori Mincho", serif; font-weight: 800; font-size: 1.12rem; margin: 0; word-break: break-all; }
+      .btn-delete {
+        flex: none; font-size: .78rem; font-weight: 700; color: var(--ink-soft);
+        background: transparent; border: 1px solid var(--card-edge); border-radius: 999px;
+        padding: 4px 12px; cursor: pointer; min-height: 2rem;
+      }
+      .btn-delete:hover { color: var(--vermillion); border-color: var(--vermillion); }
+      .gacha-nums { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-top: 8px; }
+      .gacha-count { font-family: "Shippori Mincho", serif; font-weight: 800; font-size: 2.3rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+      .gacha-count small { font-size: 1rem; color: var(--ink-soft); }
+      .gacha-remain { font-size: .95rem; color: var(--ink-soft); }
+      .gacha-remain b { color: var(--vermillion); font-size: 1.1rem; }
+      .gacha-ceiling { font-weight: 800; color: var(--gold); }
+      .gacha-bar { height: 12px; border-radius: 999px; background: var(--bg-deep); overflow: hidden; margin-top: 10px; }
+      .gacha-bar-fill {
+        height: 100%; border-radius: 999px;
+        background: linear-gradient(90deg, var(--gold-bright), var(--vermillion-bright));
+        transition: width .3s ease;
+      }
+      .gacha-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; align-items: center; }
+      .btn-step {
+        font-family: "Shippori Mincho", serif; font-weight: 800; font-size: 1rem;
+        padding: 8px 20px; border-radius: 999px; cursor: pointer; min-height: 2.6rem;
+        border: 2px solid var(--gold); background: var(--card); color: var(--ink);
+        transition: transform .12s ease;
+      }
+      .btn-step:hover { transform: translateY(-1px); }
+      .btn-step.plus { background: linear-gradient(180deg, var(--vermillion-bright), var(--vermillion)); border-color: var(--vermillion); color: #fff; }
+      .gacha-direct { display: inline-flex; gap: 6px; align-items: center; margin-left: auto; }
+      .gacha-direct input {
+        width: 84px; padding: 8px 10px; border-radius: 8px; font-size: 1rem;
+        border: 1px solid var(--card-edge); background: var(--bg); color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      .gacha-direct span { font-size: .85rem; color: var(--ink-soft); }
+      .gacha-add { padding: 16px 18px; }
+      .gacha-add-label { display: block; font-weight: 700; font-size: .9rem; margin-bottom: 8px; }
+      .gacha-add-row { display: flex; gap: 8px; }
+      .gacha-add-row input {
+        flex: 1; min-width: 0; padding: 10px 12px; border-radius: 8px; font-size: 1rem;
+        border: 1px solid var(--card-edge); background: var(--bg); color: var(--ink);
+      }
+      .btn-sub {
+        flex: none; font-weight: 700; font-size: .95rem; cursor: pointer;
+        padding: 8px 18px; border-radius: 999px; min-height: 2.6rem;
+        border: 2px solid var(--gold); background: var(--card); color: var(--ink);
+      }
+      .btn-sub:hover { border-color: var(--vermillion); color: var(--vermillion); }
+      .gacha-empty { padding: 20px 18px; text-align: center; color: var(--ink-soft); font-size: .92rem; margin-bottom: 12px; }
+      .gacha-howto { padding: 16px 18px; }
+      .gacha-howto h3 { font-family: "Shippori Mincho", serif; font-size: 1rem; font-weight: 800; margin: 0 0 8px; }
+      .gacha-howto ul { margin: 0; padding-left: 1.3em; font-size: .88rem; color: var(--ink-soft); }
+      .gacha-howto li { margin: 3px 0; }
+      .gacha-howto b { color: var(--ink); }
 
       footer {
         margin-top: 52px; text-align: center; color: var(--ink-soft); font-size: .85rem;
@@ -353,6 +501,21 @@
             <button class="btn-visit" id="btnVisit" type="button">参拝する</button>
             <p class="visit-msg" id="visitMsg">祠の前に立ち、心を静めて参拝しましょう。</p>
           </div>
+
+          <div class="record-panel">
+            <div class="record-stats">
+              <div class="rstat"><span class="rstat-num" id="statStreak">0</span><span class="rstat-label">連続参拝（日）</span></div>
+              <div class="rstat"><span class="rstat-num" id="statTotal">0</span><span class="rstat-label">通算参拝（日）</span></div>
+              <div class="rstat"><span class="rstat-num" id="statMonth">0</span><span class="rstat-label">今月の参拝（日）</span></div>
+            </div>
+            <p class="title-line">現在の称号：<span class="title-name" id="titleName">参拝見習い</span><span class="title-next" id="titleNext"></span></p>
+            <div class="cal-head">
+              <span class="cal-title" id="calTitle">今月の参拝カレンダー</span>
+              <span class="cal-legend"><span class="cal-dot-sample"></span>参拝した日</span>
+            </div>
+            <div class="calendar" id="calendar" aria-label="今月の参拝カレンダー"></div>
+            <p class="record-note">記録はこの端末のブラウザに保存されます。参拝の記録は1日1回だけつきます。</p>
+          </div>
         </div>
       </section>
 
@@ -368,6 +531,55 @@
           <div class="omikuji-box" aria-hidden="true"><span>御神籤</span></div>
           <button class="btn-omikuji" id="btnOmikuji" type="button">おみくじを引く</button>
           <div class="fortune" id="fortune" aria-live="polite"></div>
+          <div class="collection">
+            <p class="collection-head">運勢コレクション <span class="collection-count" id="collectionCount">0 / 7</span></p>
+            <ul class="collection-list" id="collectionList"></ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- レイド -->
+      <section aria-labelledby="raid-h">
+        <div class="sec-head">
+          <h2 id="raid-h">レイド</h2>
+          <div class="rule"></div>
+          <span class="note">毎日 昼・夜の2回</span>
+        </div>
+        <div class="card raid-card">
+          <p class="raid-status" id="raidStatus">読み込み中…</p>
+          <p class="raid-count" id="raidCount">--:--:--</p>
+          <div class="raid-slots">
+            <div class="raid-slot"><span class="raid-slot-name">昼レイド</span><span class="raid-slot-time">12:45 – 13:45</span></div>
+            <div class="raid-slot"><span class="raid-slot-name">夜レイド</span><span class="raid-slot-time">19:45 – 20:45</span></div>
+          </div>
+          <p class="raid-note">日本時間（JST）基準です。</p>
+        </div>
+      </section>
+
+      <!-- ガチャ天井カウンター -->
+      <section aria-labelledby="gacha-h">
+        <div class="sec-head">
+          <h2 id="gacha-h">ガチャ天井カウンター</h2>
+          <div class="rule"></div>
+          <span class="note">天井 500連</span>
+        </div>
+        <div id="gachaList"></div>
+        <div class="card gacha-add">
+          <label class="gacha-add-label" for="newBannerName">バナーを追加</label>
+          <div class="gacha-add-row">
+            <input type="text" id="newBannerName" placeholder="バナー名（例：期間限定ピックアップ）" maxlength="40" />
+            <button class="btn-sub" id="btnAddBanner" type="button">追加する</button>
+          </div>
+        </div>
+        <div class="card gacha-howto">
+          <h3>使い方</h3>
+          <ul>
+            <li>天井は<b>バナーごとに500連</b>。バナーが変わったら、「バナーを追加」から新しいカウンターを作ります。</li>
+            <li>ガチャを1回引いたら<b>「+1」</b>、10連を引いたら<b>「+10」</b>を押して数えます。</li>
+            <li>押し間違えたら<b>「-1」</b>で戻すか、右の数字欄に連数を入れて<b>「設定」</b>を押せば直せます。</li>
+            <li>ピックアップのSSRが出たら、そのカウンターは<b>0に戻す</b>か<b>「削除」</b>します。</li>
+            <li><b>「天井まで あと◯連」</b>の表示とバーで、天井までの近さが分かります。</li>
+          </ul>
         </div>
       </section>
 
@@ -385,12 +597,6 @@
             <div class="name">湖柳</div>
             <div class="desc">みふぁさんが戻られるまでの代理盟主</div>
           </div>
-          <div class="ema-feature">
-            <span class="role">奉納・作成者</span>
-            <span data-avatar="default" data-size="lg"></span>
-            <div class="name">RAIKOH</div>
-            <div class="desc">この祈願所の奉納者</div>
-          </div>
         </div>
         <div class="roster" id="roster"></div>
       </section>
@@ -406,9 +612,36 @@
       (function () {
         "use strict";
 
+        /* ---------- 端末内保存（localStorage） ---------- */
+        var LS_KEY = "paranoize-shrine-v1";
+        var store = {};
+        try {
+          var raw = localStorage.getItem(LS_KEY);
+          if (raw) { var parsed = JSON.parse(raw); if (parsed && typeof parsed === "object") store = parsed; }
+        } catch (e) { store = {}; }
+        if (!store.visits || typeof store.visits !== "object") store.visits = {};
+        if (!("omikuji" in store)) store.omikuji = null;
+        if (!store.collection || typeof store.collection !== "object") store.collection = {};
+        /* 旧形式の引き継ぎ：回数ではなく「引いたかどうか」だけが保存されている場合は1回として扱う */
+        Object.keys(store.collection).forEach(function (k) {
+          var v = store.collection[k];
+          if (typeof v !== "number" || isNaN(v) || v < 0) store.collection[k] = v ? 1 : 0;
+        });
+        if (!Array.isArray(store.gacha)) store.gacha = null;
+        if ("checks" in store) { delete store.checks; save(); } /* 廃止したチェックリストの保存データを掃除 */
+        if (typeof store.seq !== "number") store.seq = 1;
+        function save() { try { localStorage.setItem(LS_KEY, JSON.stringify(store)); } catch (e) {} }
+        function nextId(prefix) { return prefix + (store.seq++); }
+
+        /* ---------- JST日付ユーティリティ ---------- */
+        function pad2(n) { return (n < 10 ? "0" : "") + n; }
+        function jstNow() { return new Date(Date.now() + 9 * 60 * 60 * 1000); }
+        function dateKey(d) { return d.getUTCFullYear() + "-" + pad2(d.getUTCMonth() + 1) + "-" + pad2(d.getUTCDate()); }
+        function todayKey() { return dateKey(jstNow()); }
+
         /* ---------- 名簿（42名） ---------- */
         var members = [
-          "マル", "NOIR", "優蒼", "トウカ", "ちょす", "kajin1116", "河田陽菜",
+          "RAIKOH", "マル", "NOIR", "優蒼", "トウカ", "ちょす", "kajin1116", "河田陽菜",
           "鶴鴿眼の刹那", "アノリュー", "無一郎", "738", "ocean822839", "茉莉花",
           "むー", "ひろ", "ヤン", "HIRO", "こき", "ちあ", "ろっく", "Anne",
           "りょうせい", "sim", "シーサー", "ここあ", "レガーレ", "かなた",
@@ -539,6 +772,82 @@
 
         function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
+        /* ---------- 参拝記録・称号・カレンダー ---------- */
+        var titles = [
+          { days: 100, name: "神社公認・生ける伝説" },
+          { days: 60, name: "ペングラスの寵児" },
+          { days: 30, name: "一ヶ月皆勤の守り人" },
+          { days: 14, name: "二週間連続の常連" },
+          { days: 7, name: "一週間連続・顔なじみ" },
+          { days: 3, name: "三日参りの参拝者" },
+          { days: 2, name: "二日連続の参拝者" },
+          { days: 1, name: "初参拝" },
+          { days: 0, name: "参拝見習い" }
+        ];
+        var statStreak = document.getElementById("statStreak");
+        var statTotal = document.getElementById("statTotal");
+        var statMonth = document.getElementById("statMonth");
+        var titleNameEl = document.getElementById("titleName");
+        var titleNextEl = document.getElementById("titleNext");
+        var calTitleEl = document.getElementById("calTitle");
+        var calendarEl = document.getElementById("calendar");
+
+        function computeStreak() {
+          var streak = 0;
+          var d = jstNow();
+          if (!store.visits[dateKey(d)]) d.setUTCDate(d.getUTCDate() - 1);
+          while (store.visits[dateKey(d)]) { streak++; d.setUTCDate(d.getUTCDate() - 1); }
+          return streak;
+        }
+
+        function renderRecords() {
+          var now = jstNow();
+          var y = now.getUTCFullYear(), m = now.getUTCMonth();
+          var total = Object.keys(store.visits).length;
+          var streak = computeStreak();
+          var monthCount = 0;
+          Object.keys(store.visits).forEach(function (k) {
+            var p = k.split("-");
+            if (+p[0] === y && +p[1] === m + 1) monthCount++;
+          });
+          statStreak.textContent = streak;
+          statTotal.textContent = total;
+          statMonth.textContent = monthCount;
+
+          var cur = titles[titles.length - 1], next = null;
+          for (var i = 0; i < titles.length; i++) {
+            if (streak >= titles[i].days) { cur = titles[i]; next = i > 0 ? titles[i - 1] : null; break; }
+          }
+          titleNameEl.textContent = cur.name;
+          titleNextEl.textContent = next
+            ? "次の称号「" + next.name + "」まで、あと" + (next.days - streak) + "日"
+            : "最高位の称号に到達しています";
+
+          calTitleEl.textContent = y + "年" + (m + 1) + "月の参拝カレンダー";
+          calendarEl.innerHTML = "";
+          ["日", "月", "火", "水", "木", "金", "土"].forEach(function (w, i) {
+            var h = document.createElement("div");
+            h.className = "dow" + (i === 0 ? " sun" : (i === 6 ? " sat" : ""));
+            h.textContent = w;
+            calendarEl.appendChild(h);
+          });
+          var firstDow = new Date(Date.UTC(y, m, 1)).getUTCDay();
+          var daysInMonth = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+          var tk = todayKey();
+          for (var e = 0; e < firstDow; e++) {
+            var emp = document.createElement("div");
+            emp.className = "day empty";
+            calendarEl.appendChild(emp);
+          }
+          for (var day = 1; day <= daysInMonth; day++) {
+            var cell = document.createElement("div");
+            var key = y + "-" + pad2(m + 1) + "-" + pad2(day);
+            cell.className = "day" + (store.visits[key] ? " visited" : "") + (key === tk ? " today" : "");
+            cell.textContent = day;
+            calendarEl.appendChild(cell);
+          }
+        }
+
         btnVisit.addEventListener("click", function () {
           if (visiting) return;
           visiting = true;
@@ -568,14 +877,34 @@
             visiting = false;
             btnVisit.textContent = "もう一度参拝する";
             btnVisit.disabled = false;
-            visitMsg.innerHTML = "<span class=\"done-line\">参拝しました。祠に灯がともっています。</span><br />ギルド《無課金の逆襲》の皆に、今日も良い運が巡りますように。";
+            var tk = todayKey();
+            if (!store.visits[tk]) {
+              store.visits[tk] = true;
+              save();
+              renderRecords();
+              visitMsg.innerHTML = "<span class=\"done-line\">参拝しました。祠に灯がともっています。</span><br />本日の参拝を記録しました（連続" + computeStreak() + "日目）。<br />ギルド《無課金の逆襲》の皆に、今日も良い運が巡りますように。";
+            } else {
+              visitMsg.innerHTML = "<span class=\"done-line\">参拝しました。祠に灯がともっています。</span><br />本日の参拝は記録済みです。参拝は何度でもできます。<br />ギルド《無課金の逆襲》の皆に、今日も良い運が巡りますように。";
+            }
           });
         });
+
+        /* 初期表示：本日参拝済みなら灯をともした状態にする */
+        renderRecords();
+        if (store.visits[todayKey()]) {
+          visited = true;
+          sceneCard.classList.add("lit");
+          stepEls.forEach(function (el) { el.className = "done"; });
+          btnVisit.textContent = "もう一度参拝する";
+          visitMsg.innerHTML = "<span class=\"done-line\">本日は参拝済みです。</span><br />連続" + computeStreak() + "日参拝中。もう一度お参りもできます。";
+        }
 
         /* ---------- おみくじ ---------- */
         var omikujiCard = document.getElementById("omikujiCard");
         var btnOmikuji = document.getElementById("btnOmikuji");
         var fortuneEl = document.getElementById("fortune");
+        var collectionListEl = document.getElementById("collectionList");
+        var collectionCountEl = document.getElementById("collectionCount");
         var drawn = false;
 
         var fortunes = [
@@ -589,7 +918,7 @@
             stats: [["ガチャ運", "平常"], ["育成運", "平常"], ["レイド運", "平常"], ["ギルド運", "平常"]] },
           { rank: "末吉", cls: "", w: 14, msg: "運気はこれから上向き。<br />焦らず機を待ちましょう。",
             stats: [["ガチャ運", "様子見"], ["育成運", "仕込み時"], ["レイド運", "後半勝負"], ["ギルド運", "静観"]] },
-          { rank: "凶", cls: "bad", w: 9, msg: "向かい風の日。石橋を叩いて<br />渡れば難は逃れます。",
+          { rank: "凶", cls: "bad", w: 9, msg: "向かい風の日。<br />石橋を叩いて渡れば難は逃れます。",
             stats: [["ガチャ運", "控えめに"], ["育成運", "点検日和"], ["レイド運", "守り重視"], ["ギルド運", "言葉を選ぶ"]] },
           { rank: "大凶", cls: "bad", w: 5, msg: "嵐の真っ只中。でも、ここが底。<br />明日は必ず晴れます。",
             stats: [["ガチャ運", "今日は封印"], ["育成運", "休養も育成"], ["レイド運", "無理せず参加"], ["ギルド運", "仲間に頼る"]] }
@@ -605,8 +934,65 @@
           return fortunes[fortunes.length - 1];
         }
 
+        function fortuneByRank(rank) {
+          for (var i = 0; i < fortunes.length; i++) if (fortunes[i].rank === rank) return fortunes[i];
+          return null;
+        }
+
+        function renderFortunePaper(f, no) {
+          var statsHtml = f.stats.map(function (s) {
+            return "<li><span class=\"k\">" + s[0] + "</span><span class=\"v\">" + s[1] + "</span></li>";
+          }).join("");
+          fortuneEl.innerHTML =
+            "<div class=\"fortune-paper\">" +
+              "<div class=\"fortune-rank " + f.cls + "\">" + f.rank + "</div>" +
+              "<p class=\"fortune-msg\">" + f.msg + "</p>" +
+              "<ul class=\"fortune-stats\">" + statsHtml + "</ul>" +
+              "<p class=\"fortune-no\">第 " + no + " 番</p>" +
+            "</div>";
+          fortuneEl.classList.add("show");
+        }
+
+        function renderCollection() {
+          collectionListEl.innerHTML = "";
+          var gotKinds = 0;
+          var totalDraws = 0;
+          fortunes.forEach(function (f) {
+            var c = store.collection[f.rank] || 0;
+            if (typeof c !== "number" || isNaN(c) || c < 0) c = c ? 1 : 0;
+            if (c > 0) gotKinds++;
+            totalDraws += c;
+            var li = document.createElement("li");
+            if (c > 0) li.className = "got";
+            li.innerHTML = "";
+            var nm = document.createElement("span");
+            nm.textContent = c > 0 ? f.rank : "？？";
+            li.appendChild(nm);
+            var cc = document.createElement("span");
+            cc.className = "col-count";
+            cc.textContent = "×" + c;
+            li.appendChild(cc);
+            collectionListEl.appendChild(li);
+          });
+          collectionCountEl.textContent = gotKinds + " / " + fortunes.length + "種 ・ 通算" + totalDraws + "回";
+        }
+
+        function renderOmikujiState() {
+          if (store.omikuji && store.omikuji.date === todayKey()) {
+            var f = fortuneByRank(store.omikuji.rank);
+            if (f) {
+              drawn = true;
+              btnOmikuji.disabled = true;
+              btnOmikuji.textContent = "今日のおみくじは引き終わりました";
+              renderFortunePaper(f, store.omikuji.no);
+            }
+          }
+          renderCollection();
+        }
+
         btnOmikuji.addEventListener("click", function () {
           if (drawn) return;
+          if (store.omikuji && store.omikuji.date === todayKey()) { renderOmikujiState(); return; }
           drawn = true;
           btnOmikuji.disabled = true;
           fortuneEl.className = "fortune";
@@ -618,20 +1004,188 @@
             omikujiCard.classList.remove("shaking");
             var f = pickFortune();
             var no = Math.floor(Math.random() * 100) + 1;
-            var statsHtml = f.stats.map(function (s) {
-              return "<li><span class=\"k\">" + s[0] + "</span><span class=\"v\">" + s[1] + "</span></li>";
-            }).join("");
-            fortuneEl.innerHTML =
-              "<div class=\"fortune-paper\">" +
-                "<div class=\"fortune-rank " + f.cls + "\">" + f.rank + "</div>" +
-                "<p class=\"fortune-msg\">" + f.msg + "</p>" +
-                "<ul class=\"fortune-stats\">" + statsHtml + "</ul>" +
-                "<p class=\"fortune-no\">第 " + no + " 番</p>" +
-              "</div>";
-            fortuneEl.classList.add("show");
-            btnOmikuji.textContent = visited ? "今日のおみくじは引き終わりました" : "おみくじは1回までです";
+            store.omikuji = { date: todayKey(), rank: f.rank, no: no };
+            store.collection[f.rank] = (store.collection[f.rank] || 0) + 1;
+            save();
+            renderFortunePaper(f, no);
+            renderCollection();
+            btnOmikuji.textContent = "今日のおみくじは引き終わりました";
           }, 1100);
         });
+
+        renderOmikujiState();
+
+        /* ---------- レイドカウントダウン ---------- */
+        var raidStatusEl = document.getElementById("raidStatus");
+        var raidCountEl = document.getElementById("raidCount");
+        var raidSlotEls = Array.prototype.slice.call(document.querySelectorAll(".raid-slot"));
+        var raidWindows = [
+          { start: (12 * 60 + 45) * 60, end: (13 * 60 + 45) * 60 },
+          { start: (19 * 60 + 45) * 60, end: (20 * 60 + 45) * 60 }
+        ];
+        function fmtCountdown(sec) {
+          var h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+          return h + ":" + pad2(m) + ":" + pad2(s);
+        }
+        function tickRaid() {
+          var j = jstNow();
+          var nowSec = j.getUTCHours() * 3600 + j.getUTCMinutes() * 60 + j.getUTCSeconds();
+          var liveIdx = -1, nextIdx = -1, target = 0;
+          for (var i = 0; i < raidWindows.length; i++) {
+            if (nowSec >= raidWindows[i].start && nowSec < raidWindows[i].end) { liveIdx = i; target = raidWindows[i].end; break; }
+          }
+          if (liveIdx < 0) {
+            for (var k = 0; k < raidWindows.length; k++) {
+              if (nowSec < raidWindows[k].start) { nextIdx = k; target = raidWindows[k].start; break; }
+            }
+            if (nextIdx < 0) { nextIdx = 0; target = raidWindows[0].start + 86400; }
+          }
+          var activeIdx = liveIdx >= 0 ? liveIdx : nextIdx;
+          if (liveIdx >= 0) {
+            raidStatusEl.textContent = "ただいまレイド開催中（終了まで）";
+            raidStatusEl.classList.add("live");
+          } else {
+            raidStatusEl.textContent = "次回レイド開始まで";
+            raidStatusEl.classList.remove("live");
+          }
+          raidCountEl.textContent = fmtCountdown(Math.max(0, target - nowSec));
+          raidSlotEls.forEach(function (el, i) {
+            if (i === activeIdx) el.classList.add("active"); else el.classList.remove("active");
+          });
+        }
+        tickRaid();
+        setInterval(tickRaid, 1000);
+
+        /* ---------- ガチャ天井カウンター ---------- */
+        var CEILING = 500;
+        var gachaListEl = document.getElementById("gachaList");
+        var newBannerInput = document.getElementById("newBannerName");
+        var btnAddBanner = document.getElementById("btnAddBanner");
+        if (!store.gacha) {
+          store.gacha = [{ id: nextId("g"), name: "ピックアップ", count: 0 }];
+          save();
+        }
+        function clampCount(v) {
+          v = Math.floor(Number(v));
+          if (isNaN(v) || v < 0) v = 0;
+          if (v > CEILING) v = CEILING;
+          return v;
+        }
+        function renderGacha() {
+          gachaListEl.innerHTML = "";
+          if (!store.gacha.length) {
+            var empty = document.createElement("div");
+            empty.className = "card gacha-empty";
+            empty.textContent = "バナーはまだありません。下のフォームから追加できます。";
+            gachaListEl.appendChild(empty);
+            return;
+          }
+          store.gacha.forEach(function (b) {
+            var card = document.createElement("div");
+            card.className = "card gacha-card";
+
+            var top = document.createElement("div");
+            top.className = "gacha-top";
+            var nm = document.createElement("p");
+            nm.className = "gacha-name";
+            nm.textContent = b.name;
+            var del = document.createElement("button");
+            del.type = "button";
+            del.className = "btn-delete";
+            del.textContent = "削除";
+            del.addEventListener("click", function () {
+              store.gacha = store.gacha.filter(function (x) { return x.id !== b.id; });
+              save();
+              renderGacha();
+            });
+            top.appendChild(nm);
+            top.appendChild(del);
+            card.appendChild(top);
+
+            var nums = document.createElement("div");
+            nums.className = "gacha-nums";
+            var cnt = document.createElement("span");
+            cnt.className = "gacha-count";
+            cnt.innerHTML = b.count + " <small>連</small>";
+            var rem = document.createElement("span");
+            rem.className = "gacha-remain";
+            if (b.count >= CEILING) {
+              rem.innerHTML = "<span class=\"gacha-ceiling\">天井到達！</span>";
+            } else {
+              rem.innerHTML = "天井まで あと <b>" + (CEILING - b.count) + "</b> 連";
+            }
+            nums.appendChild(cnt);
+            nums.appendChild(rem);
+            card.appendChild(nums);
+
+            var bar = document.createElement("div");
+            bar.className = "gacha-bar";
+            var fill = document.createElement("div");
+            fill.className = "gacha-bar-fill";
+            fill.style.width = (b.count / CEILING * 100) + "%";
+            bar.appendChild(fill);
+            card.appendChild(bar);
+
+            var btns = document.createElement("div");
+            btns.className = "gacha-btns";
+            function stepBtn(label, delta, cls) {
+              var btn = document.createElement("button");
+              btn.type = "button";
+              btn.className = "btn-step" + (cls ? " " + cls : "");
+              btn.textContent = label;
+              btn.addEventListener("click", function () {
+                b.count = clampCount(b.count + delta);
+                save();
+                renderGacha();
+              });
+              return btn;
+            }
+            btns.appendChild(stepBtn("+1", 1, "plus"));
+            btns.appendChild(stepBtn("+10", 10, "plus"));
+            btns.appendChild(stepBtn("-1", -1, ""));
+
+            var direct = document.createElement("span");
+            direct.className = "gacha-direct";
+            var inp = document.createElement("input");
+            inp.type = "number";
+            inp.min = "0";
+            inp.max = String(CEILING);
+            inp.value = b.count;
+            inp.setAttribute("aria-label", b.name + "の連数を直接入力");
+            var setBtn = document.createElement("button");
+            setBtn.type = "button";
+            setBtn.className = "btn-sub";
+            setBtn.textContent = "設定";
+            function applyDirect() {
+              b.count = clampCount(inp.value);
+              save();
+              renderGacha();
+            }
+            setBtn.addEventListener("click", applyDirect);
+            inp.addEventListener("keydown", function (ev) { if (ev.key === "Enter") applyDirect(); });
+            direct.appendChild(inp);
+            var unit = document.createElement("span");
+            unit.textContent = "連に設定";
+            direct.appendChild(unit);
+            direct.appendChild(setBtn);
+            btns.appendChild(direct);
+            card.appendChild(btns);
+
+            gachaListEl.appendChild(card);
+          });
+        }
+        btnAddBanner.addEventListener("click", function () {
+          var name = newBannerInput.value.replace(/^\s+|\s+$/g, "");
+          if (!name) name = "バナー" + (store.gacha.length + 1);
+          store.gacha.push({ id: nextId("g"), name: name, count: 0 });
+          save();
+          newBannerInput.value = "";
+          renderGacha();
+        });
+        newBannerInput.addEventListener("keydown", function (ev) {
+          if (ev.key === "Enter") btnAddBanner.click();
+        });
+        renderGacha();
       })();
     </script>
   </body>
