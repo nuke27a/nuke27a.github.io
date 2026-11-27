@@ -1330,7 +1330,9 @@
           });
           wins.sort(function (a, b) { return a.s - b.s; });
           var winHtml = wins.map(function (w) {
-            return "<li>" + toHM(w.s) + "〜" + toHM(w.e) + "　" + w.label + (w.hot ? "<span class=\"hot-badge\">激熱</span>" : "") + "</li>";
+            var sTxt = w.s < 0 ? "00:00" : toHM(w.s);
+            var eTxt = w.e > 1440 ? "24:00" : toHM(w.e);
+            return "<li>" + sTxt + "〜" + eTxt + "　" + w.label + (w.hot ? "<span class=\"hot-badge\">激熱</span>" : "") + "</li>";
           }).join("");
           var moon = chart.moon || {};
           tideResultEl.innerHTML =
