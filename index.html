@@ -276,6 +276,19 @@
       .tide-hot ul { margin: 7px 0 0; padding-left: 18px; line-height: 1.75; font-size: .93rem; }
       .tide-hot .hot-badge { display: inline-block; font-size: .7rem; font-weight: 900; color: #fff; background: #b3352b; border-radius: 999px; padding: 1px 8px; margin-left: 6px; vertical-align: 2px; }
       .tide-note { font-size: .76rem; color: var(--ink-soft); margin: 14px 0 0; text-align: center; line-height: 1.7; }
+
+      /* ---------- 投稿ポスト ---------- */
+      .post-card { padding: 24px 18px 26px; text-align: center; }
+      .post-lead { margin: 0 0 16px; color: var(--ink-soft); font-size: .92rem; line-height: 1.8; }
+      .btn-post {
+        display: inline-block; text-decoration: none;
+        font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: 1rem;
+        color: #fff; background: linear-gradient(180deg, #c0452f, #9c2b1a);
+        border: 1px solid #7e2113; border-radius: 999px; padding: 12px 30px; cursor: pointer;
+        box-shadow: 0 8px 18px rgba(120, 40, 16, .3); transition: transform .15s ease;
+      }
+      .btn-post:hover { transform: translateY(-2px); }
+      .post-note { font-size: .76rem; color: var(--ink-soft); margin: 14px 0 0; line-height: 1.7; }
       @media (prefers-color-scheme: dark) {
         .tide-hot { background: linear-gradient(180deg, #57451f, #423310); color: #fdf0c8; border-color: #8a6d2f; }
         .tide-hot .th-title { color: #ff9d8a; }
@@ -646,6 +659,20 @@
           </div>
         </div>
         <div class="roster" id="roster"></div>
+      </section>
+
+      <!-- 投稿ポスト -->
+      <section aria-labelledby="post-h">
+        <div class="sec-head">
+          <h2 id="post-h">ネタ・要望ポスト</h2>
+          <div class="rule"></div>
+          <span class="note">ギルメン専用</span>
+        </div>
+        <div class="card post-card">
+          <p class="post-lead">おみくじのネタ、メンバーの加入・脱退・改名、<br />神社への要望はこちらから投稿できます。</p>
+          <a class="btn-post" href="https://docs.google.com/forms/d/e/1FAIpQLSc4X_Mf5UeuT0x5j_-vDRE_zkfC2bap0lRu8FLBLVS0QVrJAQ/viewform" target="_blank" rel="noopener">投稿フォームを開く</a>
+          <p class="post-note">投稿は確認後に反映されます。他ギルドのネタは採用されません。</p>
+        </div>
       </section>
 
       <footer>
