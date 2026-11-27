@@ -249,6 +249,37 @@
       .fortune-stats .k { color: #7a6543; font-weight: 700; }
       .fortune-stats .v { font-weight: 700; }
       .fortune-no { text-align: center; font-size: .78rem; color: #9a865e; margin: 12px 0 0; letter-spacing: .2em; }
+      .fortune-rival { text-align: center; margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed #c9b078; font-size: .93rem; line-height: 1.6; }
+
+      /* ---------- 潮汐 ---------- */
+      .tide-card { padding: 24px 18px 26px; text-align: center; }
+      .tide-lead { margin: 0 0 16px; color: var(--ink-soft); font-size: .92rem; line-height: 1.7; }
+      .btn-tide {
+        font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: 1rem;
+        color: #fff; background: linear-gradient(180deg, #2e6da8, #1d4e79);
+        border: 1px solid #173f63; border-radius: 999px; padding: 12px 30px; cursor: pointer;
+        box-shadow: 0 8px 18px rgba(20, 60, 100, .3); transition: transform .15s ease;
+      }
+      .btn-tide:hover { transform: translateY(-2px); }
+      .btn-tide:disabled { opacity: .55; cursor: default; transform: none; }
+      .tide-status { margin: 14px 0 0; font-size: .9rem; color: var(--ink-soft); }
+      .tide-result { margin-top: 18px; text-align: left; }
+      .tide-port { font-family: "Shippori Mincho", serif; font-weight: 800; font-size: 1.2rem; text-align: center; }
+      .tide-sub { text-align: center; color: var(--gold); font-weight: 700; margin: 3px 0 14px; font-size: .9rem; }
+      .tide-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .tide-cell { background: var(--bg); border: 1px solid var(--card-edge); border-radius: 10px; padding: 9px 12px; }
+      .tide-cell .tl { display: block; font-size: .74rem; color: var(--ink-soft); font-weight: 700; }
+      .tide-cell .tv { display: block; font-weight: 800; font-size: 1.08rem; margin-top: 2px; }
+      .tide-cell .tv small { font-size: .74rem; font-weight: 700; color: var(--ink-soft); }
+      .tide-hot { margin: 16px 0 0; padding: 13px 14px; border-radius: 10px; background: linear-gradient(180deg, #fdf3d7, #fbeec2); color: #4a3410; border: 1px solid #d9c48d; text-align: left; }
+      .tide-hot .th-title { font-weight: 900; color: #a12c22; font-family: "Shippori Mincho", serif; }
+      .tide-hot ul { margin: 7px 0 0; padding-left: 18px; line-height: 1.75; font-size: .93rem; }
+      .tide-hot .hot-badge { display: inline-block; font-size: .7rem; font-weight: 900; color: #fff; background: #b3352b; border-radius: 999px; padding: 1px 8px; margin-left: 6px; vertical-align: 2px; }
+      .tide-note { font-size: .76rem; color: var(--ink-soft); margin: 14px 0 0; text-align: center; line-height: 1.7; }
+      @media (prefers-color-scheme: dark) {
+        .tide-hot { background: linear-gradient(180deg, #57451f, #423310); color: #fdf0c8; border-color: #8a6d2f; }
+        .tide-hot .th-title { color: #ff9d8a; }
+      }
 
       /* ---------- 名簿 ---------- */
       .featured { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 0 auto 12px; max-width: 460px; }
@@ -535,6 +566,22 @@
             <p class="collection-head">運勢コレクション <span class="collection-count" id="collectionCount">0 / 7</span></p>
             <ul class="collection-list" id="collectionList"></ul>
           </div>
+        </div>
+      </section>
+
+      <!-- 潮汐・爆釣タイム -->
+      <section aria-labelledby="tide-h">
+        <div class="sec-head">
+          <h2 id="tide-h">潮汐と爆釣タイム</h2>
+          <div class="rule"></div>
+          <span class="note">ガチ勢向け</span>
+        </div>
+        <div class="card tide-card">
+          <p class="tide-lead">最寄りの港の本物の潮汐表から、<br />今日の満潮・干潮と爆釣タイムを占います。</p>
+          <button class="btn-tide" id="btnTide" type="button">現在地の潮汐を見る</button>
+          <p class="tide-status" id="tideStatus"></p>
+          <div class="tide-result" id="tideResult"></div>
+          <p class="tide-note">位置情報は最寄りの港を選ぶためだけに使い、外部へは送信しません。<br />潮汐データ提供：tide736.net（日本沿岸736港の潮汐表）</p>
         </div>
       </section>
 
@@ -943,7 +990,44 @@
           return null;
         }
 
-        function renderFortunePaper(f, no, msgText) {
+        /* ---------- 釣り対決（ギルメン名前入り） ---------- */
+        var rivalPool = members.concat(["湖柳"]);
+        var rivalLines = {
+          good: ["今日は{name}さんより釣れるはず⁉︎", "{name}さんに今日は勝てる気がする⁉︎ 大物で勝負。", "{name}さんより先に大物を仕留めるのは、あなたです⁉︎"],
+          mid: ["{name}さんと互角の勝負。最後の一投で決めよう。", "{name}さんとは五分。釣果勝負、引き分け以上を狙え。", "{name}さんに並ぶかどうかの瀬戸際。集中の一投を。"],
+          bad: ["今日は{name}さんの方が一枚上かも…無理せず撤退も手。", "{name}さんに先を越されそうな日。リベンジは明日。", "今日は{name}さんの釣果報告を、大人しく見守ろう。"],
+          bouzu: ["{name}さんとボウズ仲間の称号を分け合いました。", "{name}さんも今日は仲間のはず。ボウズ同盟、結成。", "ボウズ仲間募集中。第一号は{name}さん（たぶん）。"]
+        };
+        function rivalTier(rank) {
+          if (rank === "大吉" || rank === "中吉") return "good";
+          if (rank === "ボウズ") return "bouzu";
+          if (rank === "凶" || rank === "大凶") return "bad";
+          return "mid";
+        }
+        function pickRival(rank) {
+          var tier = rivalTier(rank);
+          return {
+            name: rivalPool[Math.floor(Math.random() * rivalPool.length)],
+            rp: Math.floor(Math.random() * rivalLines[tier].length)
+          };
+        }
+        function ensureRival() {
+          var o = store.omikuji;
+          if (o && o.date === todayKey() && !o.rival) {
+            var r = pickRival(o.rank);
+            o.rival = r.name; o.rp = r.rp;
+            save();
+          }
+        }
+        function rivalTextFor(f) {
+          var o = store.omikuji;
+          if (!o || !o.rival) return "";
+          var arr = rivalLines[rivalTier(f.rank)];
+          var t = arr[(o.rp || 0) % arr.length];
+          return "🎣 釣り対決 ― " + t.replace("{name}", o.rival);
+        }
+
+        function renderFortunePaper(f, no, msgText, rivalText) {
           var statsHtml = f.stats.map(function (s) {
             return "<li><span class=\"k\">" + s[0] + "</span><span class=\"v\">" + s[1] + "</span></li>";
           }).join("");
@@ -952,6 +1036,7 @@
               "<div class=\"fortune-rank " + f.cls + "\">" + f.rank + "</div>" +
               "<p class=\"fortune-msg\">" + (msgText || f.msgs[0]) + "</p>" +
               "<ul class=\"fortune-stats\">" + statsHtml + "</ul>" +
+              (rivalText ? "<p class=\"fortune-rival\">" + rivalText + "</p>" : "") +
               "<p class=\"fortune-no\">第 " + no + " 番</p>" +
             "</div>";
           fortuneEl.classList.add("show");
@@ -985,10 +1070,11 @@
           if (store.omikuji && store.omikuji.date === todayKey()) {
             var f = fortuneByRank(store.omikuji.rank);
             if (f) {
+              ensureRival();
               drawn = true;
               btnOmikuji.disabled = true;
               btnOmikuji.textContent = "今日のおみくじは引き終わりました";
-              renderFortunePaper(f, store.omikuji.no, f.msgs[store.omikuji.mi || 0] || f.msgs[0]);
+              renderFortunePaper(f, store.omikuji.no, f.msgs[store.omikuji.mi || 0] || f.msgs[0], rivalTextFor(f));
             }
           }
           renderCollection();
@@ -1009,10 +1095,11 @@
             var f = pickFortune();
             var no = Math.floor(Math.random() * 100) + 1;
             var mi = Math.floor(Math.random() * f.msgs.length);
-            store.omikuji = { date: todayKey(), rank: f.rank, no: no, mi: mi };
+            var rv = pickRival(f.rank);
+            store.omikuji = { date: todayKey(), rank: f.rank, no: no, mi: mi, rival: rv.name, rp: rv.rp };
             store.collection[f.rank] = (store.collection[f.rank] || 0) + 1;
             save();
-            renderFortunePaper(f, no, f.msgs[mi]);
+            renderFortunePaper(f, no, f.msgs[mi], rivalTextFor(f));
             renderCollection();
             btnOmikuji.textContent = "今日のおみくじは引き終わりました";
           }, 1100);
@@ -1191,6 +1278,103 @@
           if (ev.key === "Enter") btnAddBanner.click();
         });
         renderGacha();
+
+        /* ---------- 潮汐・爆釣タイム（tide736.net API） ---------- */
+        var tideBtn = document.getElementById("btnTide");
+        var tideStatusEl = document.getElementById("tideStatus");
+        var tideResultEl = document.getElementById("tideResult");
+        /* [都道府県コード, 港コード, 港名, 緯度, 経度] 主要港のみ。位置に一番近い港を使う */
+        var TIDE_PORTS = [
+          [1,24,"稚内",45.42,141.68],[1,30,"留萌",43.95,141.64],[1,32,"小樽",43.19,141.02],[1,45,"函館",41.77,140.73],[1,52,"室蘭",42.32,140.97],[1,53,"苫小牧",42.61,141.61],[1,56,"浦河",42.17,142.77],[1,64,"釧路",42.98,144.37],[1,14,"根室",43.33,145.58],[1,18,"網走",44.02,144.27],
+          [2,4,"青森",40.83,140.74],[2,15,"八戸",40.51,141.53],[3,2,"宮古",39.64,141.97],[3,4,"釜石",39.27,141.89],[4,11,"仙台",38.27,141.02],[5,2,"秋田",39.75,140.04],[6,4,"酒田",38.94,139.82],[7,6,"小名浜",36.94,140.92],[8,4,"鹿島",35.97,140.69],
+          [12,2,"銚子",35.74,140.86],[12,12,"君津",35.35,139.85],[12,19,"館山",35.00,139.83],[13,2,"芝浦（東京）",35.64,139.75],[14,7,"横須賀",35.29,139.67],[14,19,"江ノ島",35.30,139.48],
+          [15,6,"新潟",37.93,139.06],[16,3,"富山",36.76,137.23],[17,1,"金沢",36.61,136.59],[18,5,"敦賀",35.66,136.07],
+          [22,5,"下田",34.67,138.95],[22,13,"清水",35.01,138.51],[22,17,"御前崎",34.60,138.21],[23,17,"名古屋",35.03,136.88],[24,1,"四日市",34.95,136.65],[24,5,"鳥羽",34.48,136.84],
+          [26,5,"舞鶴",35.48,135.39],[27,6,"大阪",34.65,135.42],[28,7,"神戸",34.68,135.19],[28,9,"明石",34.64,134.99],[30,11,"和歌山",34.22,135.15],[30,3,"串本",33.47,135.78],
+          [31,2,"境港",35.55,133.24],[33,6,"宇野",34.49,133.95],[34,19,"広島",34.35,132.42],[35,19,"下関",33.96,130.95],[35,29,"萩",34.42,131.40],
+          [36,4,"小松島",34.01,134.59],[37,8,"高松",34.36,134.05],[38,13,"松山",33.86,132.70],[38,21,"宇和島",33.22,132.57],[39,4,"高知",33.54,133.57],[39,2,"室戸岬",33.25,134.18],
+          [40,20,"博多",33.62,130.40],[40,10,"若松（北九州）",33.94,130.82],[41,1,"唐津",33.47,129.97],[42,40,"佐世保",33.17,129.72],[42,58,"長崎（女神）",32.73,129.86],[43,3,"熊本",32.76,130.61],[43,7,"八代",32.48,130.61],[44,3,"大分",33.26,131.66],[45,9,"宮崎",31.91,131.45],[45,3,"油津",31.58,131.40],[46,10,"鹿児島",31.59,130.57],[46,17,"志布志",31.48,131.10],
+          [47,5,"那覇",26.24,127.67],[47,13,"平良（宮古島）",24.82,125.27],[47,15,"石垣",24.33,124.19]
+        ];
+        function nearestPort(lat, lon) {
+          var best = null, bd = Infinity;
+          TIDE_PORTS.forEach(function (p) {
+            var dx = (p[3] - lat) * 111, dy = (p[4] - lon) * 91;
+            var d = dx * dx + dy * dy;
+            if (d < bd) { bd = d; best = p; }
+          });
+          return best;
+        }
+        function toMin(s) { var a = String(s).split(":"); return (+a[0]) * 60 + (+a[1]); }
+        function toHM(m) { m = ((m % 1440) + 1440) % 1440; return pad2(Math.floor(m / 60)) + ":" + pad2(m % 60); }
+        function renderTide(port, chart) {
+          var flood = chart.flood || [], edd = chart.edd || [];
+          var cells = "";
+          function cell(label, x) {
+            return "<div class=\"tide-cell\"><span class=\"tl\">" + label + "</span><span class=\"tv\">" + x.time + " <small>" + Math.round(x.cm) + "cm</small></span></div>";
+          }
+          var events = [];
+          flood.forEach(function (x) { cells += cell("満潮", x); events.push({ t: x.time, label: "満潮" }); });
+          edd.forEach(function (x) { cells += cell("干潮", x); events.push({ t: x.time, label: "干潮" }); });
+          var wins = events.map(function (ev) {
+            var m = toMin(ev.t);
+            return { s: m - 60, e: m + 60, label: ev.label + " " + ev.t + " の前後", hot: false };
+          });
+          if (chart.sun && chart.sun.rise && chart.sun.set) {
+            var sr = toMin(chart.sun.rise), ss = toMin(chart.sun.set);
+            wins.push({ s: sr - 30, e: sr + 60, label: "朝マズメ（日の出 " + chart.sun.rise + "）", hot: false });
+            wins.push({ s: ss - 60, e: ss + 30, label: "夕マズメ（日の入 " + chart.sun.set + "）", hot: false });
+          }
+          wins.forEach(function (w, i) {
+            wins.forEach(function (v, j) { if (i !== j && w.s < v.e && v.s < w.e) w.hot = true; });
+          });
+          wins.sort(function (a, b) { return a.s - b.s; });
+          var winHtml = wins.map(function (w) {
+            return "<li>" + toHM(w.s) + "〜" + toHM(w.e) + "　" + w.label + (w.hot ? "<span class=\"hot-badge\">激熱</span>" : "") + "</li>";
+          }).join("");
+          var moon = chart.moon || {};
+          tideResultEl.innerHTML =
+            "<div class=\"tide-port\">最寄りの港：" + port[2] + "</div>" +
+            "<p class=\"tide-sub\">" + (moon.title ? moon.title + "　" : "") + "月齢 " + (moon.age || "―") + "</p>" +
+            "<div class=\"tide-grid\">" + cells + "</div>" +
+            "<div class=\"tide-hot\"><span class=\"th-title\">本日の爆釣タイム候補</span><ul>" + winHtml + "</ul>" +
+            "<p style=\"margin:8px 0 0;font-size:.8rem;\">潮が動く満潮・干潮の前後1時間が本命。マズメと重なると「激熱」です。</p></div>";
+        }
+        function loadTide(lat, lon) {
+          var port = nearestPort(lat, lon);
+          var j = jstNow();
+          var url = "https://tide736.net/api/get_tide.php?pc=" + port[0] + "&hc=" + port[1] +
+            "&yr=" + j.getUTCFullYear() + "&mn=" + (j.getUTCMonth() + 1) + "&dy=" + j.getUTCDate() + "&rg=day";
+          tideBtn.disabled = true;
+          tideStatusEl.textContent = "港「" + port[2] + "」の潮汐を取得中…";
+          fetch(url).then(function (r) { return r.json(); }).then(function (d) {
+            tideBtn.disabled = false;
+            if (!d || d.status !== 1 || !d.tide || !d.tide.chart || !d.tide.chart[todayKey()]) throw new Error("bad data");
+            renderTide(port, d.tide.chart[todayKey()]);
+            tideStatusEl.textContent = "";
+          }).catch(function () {
+            tideBtn.disabled = false;
+            tideStatusEl.textContent = "潮汐データを取得できませんでした。通信環境の良いところで、もう一度お試しください。";
+          });
+        }
+        tideBtn.addEventListener("click", function () {
+          if (!navigator.geolocation) { loadTide(35.64, 139.75); return; }
+          tideStatusEl.textContent = "現在地を確認中…";
+          navigator.geolocation.getCurrentPosition(function (pos) {
+            var lat = Math.round(pos.coords.latitude * 100) / 100;
+            var lon = Math.round(pos.coords.longitude * 100) / 100;
+            store.tideLoc = [lat, lon];
+            save();
+            loadTide(lat, lon);
+          }, function () {
+            tideStatusEl.textContent = "位置情報が許可されなかったため、東京（芝浦）で表示します。";
+            loadTide(35.64, 139.75);
+          }, { timeout: 10000, maximumAge: 600000 });
+        });
+        if (Array.isArray(store.tideLoc)) {
+          tideBtn.textContent = "現在地の潮汐を見る（更新）";
+          loadTide(store.tideLoc[0], store.tideLoc[1]);
+        }
       })();
     </script>
   </body>
